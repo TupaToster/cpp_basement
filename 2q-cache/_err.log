@@ -1,0 +1,41 @@
+
+In file included from tester.cpp:4:
+2q.hpp: In instantiation of ‘bool Cache_2q_t<T, KeyT>::lookup_update(KeyT, F) [with F = int (*)(int); T = int; KeyT = int]’:
+tester.cpp:41:48:   required from here
+   41 |         lookupResults[i] = cache.lookup_update (reqs[i], slow_get_page_emulator);
+      |                            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2q.hpp:93:47: error: request for member ‘id’ in ‘((Cache_2q_t<int>*)this)->Cache_2q_t<int>::a1.std::__cxx11::list<int, std::allocator<int> >::back()’, which is of non-class type ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’}
+   93 |                 a1_hash_map.erase (a1.back ().id);
+      |                                    ~~~~~~~~~~~^~
+2q.hpp:98:30: error: no match for ‘operator=’ (operand types are ‘std::unordered_map<int, std::_List_iterator<int>, std::hash<int>, std::equal_to<int>, std::allocator<std::pair<const int, std::_List_iterator<int> > > >::mapped_type’ {aka ‘std::__detail::_Map_base<int, std::pair<const int, std::_List_iterator<int> >, std::allocator<std::pair<const int, std::_List_iterator<int> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::mapped_type’} and ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’})
+   98 |             a1_hash_map[req] = a1.front ();
+      |             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+In file included from /usr/include/c++/14.2.1/list:65,
+                 from 2q.hpp:4:
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note: candidate: ‘constexpr std::_List_iterator<int>& std::_List_iterator<int>::operator=(const std::_List_iterator<int>&)’
+  253 |     struct _List_iterator
+      |            ^~~~~~~~~~~~~~
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘const std::_List_iterator<int>&’
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note: candidate: ‘constexpr std::_List_iterator<int>& std::_List_iterator<int>::operator=(std::_List_iterator<int>&&)’
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::_List_iterator<int>&&’
+2q.hpp:107:30: error: no match for ‘operator=’ (operand types are ‘std::unordered_map<int, std::_List_iterator<int>, std::hash<int>, std::equal_to<int>, std::allocator<std::pair<const int, std::_List_iterator<int> > > >::mapped_type’ {aka ‘std::__detail::_Map_base<int, std::pair<const int, std::_List_iterator<int> >, std::allocator<std::pair<const int, std::_List_iterator<int> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::mapped_type’} and ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’})
+  107 |             am_hash_map[req] = am.front ();
+      |             ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note: candidate: ‘constexpr std::_List_iterator<int>& std::_List_iterator<int>::operator=(const std::_List_iterator<int>&)’
+  253 |     struct _List_iterator
+      |            ^~~~~~~~~~~~~~
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘const std::_List_iterator<int>&’
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note: candidate: ‘constexpr std::_List_iterator<int>& std::_List_iterator<int>::operator=(std::_List_iterator<int>&&)’
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::_List_iterator<int>&&’
+2q.hpp:117:39: error: request for member ‘id’ in ‘((Cache_2q_t<int>*)this)->Cache_2q_t<int>::am.std::__cxx11::list<int, std::allocator<int> >::back()’, which is of non-class type ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’}
+  117 |         am_hash_map.erase (am.back ().id);
+      |                            ~~~~~~~~~~~^~
+2q.hpp:122:22: error: no match for ‘operator=’ (operand types are ‘std::unordered_map<int, std::_List_iterator<int>, std::hash<int>, std::equal_to<int>, std::allocator<std::pair<const int, std::_List_iterator<int> > > >::mapped_type’ {aka ‘std::__detail::_Map_base<int, std::pair<const int, std::_List_iterator<int> >, std::allocator<std::pair<const int, std::_List_iterator<int> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::mapped_type’} and ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’})
+  122 |     am_hash_map[req] = am.front ();
+      |     ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note: candidate: ‘constexpr std::_List_iterator<int>& std::_List_iterator<int>::operator=(const std::_List_iterator<int>&)’
+  253 |     struct _List_iterator
+      |            ^~~~~~~~~~~~~~
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘const std::_List_iterator<int>&’
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note: candidate: ‘constexpr std::_List_iterator<int>& std::_List_iterator<int>::operator=(std::_List_iterator<int>&&)’
+/usr/include/c++/14.2.1/bits/stl_list.h:253:12: note:   no known conversion for argument 1 from ‘__gnu_cxx::__alloc_traits<std::allocator<int>, int>::value_type’ {aka ‘int’} to ‘std::_List_iterator<int>&&’
