@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "2q.hpp"
-#include "lib.hpp"
+#include "perfect_cache.hpp"
 
 int slow_get_page_emulator (int req) {
 
@@ -46,4 +46,8 @@ int main (int argc, char* argv[]) {
     std::cout << std::endl;
 
     std::cout << "Now lets compare it to an ideal cache";
+
+    Perfect_cache_t<int> perf_cache (cache_size, reqs, slow_get_page_emulator);
+
+    perf_cache.dump ();
 }

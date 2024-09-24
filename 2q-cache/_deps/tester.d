@@ -180,4 +180,11 @@ _objs/tester.o: tester.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/14.2.1/tr1/poly_hermite.tcc \
  /usr/include/c++/14.2.1/tr1/poly_laguerre.tcc \
  /usr/include/c++/14.2.1/tr1/riemann_zeta.tcc \
- /usr/include/c++/14.2.1/cassert /usr/include/assert.h
+ /usr/include/c++/14.2.1/cassert /usr/include/assert.h perfect_cache.hpp \
+ /usr/include/c++/14.2.1/unordered_set \
+ /usr/include/c++/14.2.1/bits/unordered_set.h /usr/include/c++/14.2.1/map \
+ /usr/include/c++/14.2.1/bits/stl_tree.h \
+ /usr/include/c++/14.2.1/bits/stl_map.h \
+ /usr/include/c++/14.2.1/bits/stl_multimap.h /usr/include/c++/14.2.1/set \
+ /usr/include/c++/14.2.1/bits/stl_set.h \
+ /usr/include/c++/14.2.1/bits/stl_multiset.h
