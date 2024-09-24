@@ -36,7 +36,7 @@ const char* getFormatIntern (const char* varType);
 /**
  * @brief logs using some magick and logIntern
  */
-#define log(a)                                                                                                         \
+#define Log_(a)                                                                                                         \
             {if (LogFilePtr == NULL){                                                                                   \
                 LogFilePtr = fopen ("logs_out.html", "w");                                                              \
                 setvbuf (LogFilePtr, NULL, _IONBF, 0);                                                                  \
@@ -49,7 +49,7 @@ const char* getFormatIntern (const char* varType);
 /**
  * @brief writes as printf to log file
  */
-#define logprintf(...)                                                                                                 \
+#define Log_printf(...)                                                                                                 \
     {if (LogFilePtr == NULL){                                                                                           \
                 LogFilePtr = fopen ("logs_out.html", "w");                                                              \
                 setvbuf (LogFilePtr, NULL, _IONBF, 0);                                                                  \
@@ -63,13 +63,13 @@ const char* getFormatIntern (const char* varType);
  * @brief log function for classes
  * @note Log function should be defined inside class for it to work
  */
-#define logc(clas) {clas.Log (#clas, __FILE__, __FUNCTION__, __LINE__);}
+#define Log_c(clas) {clas.Log (#clas, __FILE__, __FUNCTION__, __LINE__);}
 
 /**
  * @brief disables logs if NDEBUG
  */
 #ifdef NDEBUG
-#define logc(clas) {}
-#define log(a) {}
-#define logFileInit {}
+#define Log_c(clas) {}
+#define Log_(a) {}
+#define Log_printf (a) {}
 #endif
