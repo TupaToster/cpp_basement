@@ -25,13 +25,13 @@ struct Perfect_cache_t {
     unsigned int cache_max_size = 0;
 
     using CacheIt = typename std::unordered_set<T>::iterator;
-    std::unordered_map<KeyT, CacheIt&> cache_map;
+    std::unordered_map<KeyT, CacheIt> cache_map;
 
     using DistSetT = typename std::set<std::pair<
                                                 KeyT,
                                                 std::list<u_int32_t>>,
                                                 decltype ([](const std::pair<KeyT, std::list<u_int32_t>>& lhs, const std::pair<KeyT, std::list<u_int32_t>>& rhs) -> bool
-                                                {return ((*lhs.second.begin ()) > (*rhs.second.begin ()));})>;
+                                                {return ((*lhs.second.begin ()) < (*rhs.second.begin ()));})>;
 
     DistSetT dist_set;
 
@@ -60,7 +60,7 @@ struct Perfect_cache_t {
      * @brief Construct a new Perfect_cache_t object
      *
      * @tparam F function type for getting a page from ram (slow)
-     * @param size size of cache (lol)
+     * @param size size of cache
      * @param reqs_ vector of requests
      * @param slow_get_page function for getting page from KeyT
      */
@@ -71,11 +71,15 @@ struct Perfect_cache_t {
 
             auto hit = dist_map.find (reqs[i]); ///< Check if key was already encountered
 
+            // Well where to start... First of all - set iterator is const for a reason; if u change it without set's knowledge, set loses it's sortedness.
+            // In this place it works correctly because order is defined on creation of set element, so in this SPECIFIC scenario and this SPECIFIC place -fpermissive is justified
             if (dist_map.count (reqs[i]))   dist_map[reqs[i]]->second.push_back (i); ///< add pos to end of list of known positions}
             else dist_map[reqs[i]] = dist_set.emplace (reqs[i], std::list<u_int32_t> (1, i)).first; ///< just create new entry with list of one element
         }
 
-        for (auto& i : dist_set) i.second.push_back (-1); ///< add u_int32_t (-1) (inf in this context) as the last element (to signify that we will not find this element in requests anymore)
+        for (auto& i : dist_set) {
+            i.second.push_back (-1); ///< add u_int32_t (-1) (inf in this context) as the last element (to signify that we will not find this element in requests anymore)
+        }
     }
 
     bool cache_full () {
@@ -87,14 +91,20 @@ struct Perfect_cache_t {
     template<typename F>
     bool lookup_update (const int req_num, F slow_get_page) {
 
+
         KeyT req = reqs[req_num];
 
-        dist_map[req]->second.pop_front ();
+        // Here i will extract an element, change it and put it back
+        auto node = dist_set.extract (dist_map[req]);
+        node.value ().second.pop_front ();
+        dist_set.insert (std::move (node));
+        // Well if it works it works lol
+        /// @remark Let me explain myself here. This is a crutch that exists only because i didn't waste time to research the fact, that set elements can not be changed in place, but need to be extracted and modified outside of it not to break sets orderd... so yeah i hereby consent to any shaming that may (and will follow) :)
 
         if (cache_map.find (req) != cache_map.end ()) return 1; ///< if already in cache
         else {
 
-            if (!cache_full) {
+            if (!cache_full ()) {
 
                 cache_map[req] = cache.emplace (slow_get_page (req)).first;
                 return 0;
@@ -122,10 +132,10 @@ struct Perfect_cache_t {
 
             if (dist_map[req]->second.front () != (u_int32_t) -1) {
 
-                cache.erase (cache_map.begin ()->second ());
+                cache.erase (cache_map.begin ()->second);
                 cache_map.erase (cache_map.begin ());
 
-                cache_map[req] = cache.emplace (slow_get_page (req)).first;
+                cache_map[req] = (cache.emplace (slow_get_page (req))).first;
 
                 return 0;
             }
@@ -151,8 +161,15 @@ struct Perfect_cache_t {
         std::cout << "dist_map : [";
         for (auto i : dist_map) {
 
-            std::cout << "<" << i.first << ", {";
-            for (auto j : i.second->second) std::cout << j << ", ";
+            int counter = 0;
+
+            std::cout << "(" << i.second->second.size () << ")" << "<" << i.first << ", {";
+            for (auto j : i.second->second) {
+
+                std::cout << j << ", ";
+                counter++;
+                if (counter >= (i.second->second.size ())) break;
+            }
             std::cout << "end}>, ";
         }
         std::cout << "end]\n";

@@ -15,6 +15,8 @@ int slow_get_page_emulator (int req) {
 
 int main (int argc, char* argv[]) {
 
+    std::setvbuf(stdout, nullptr, _IONBF, 0);
+
     std::cout << "Insert summary cache size in pages (note that approximately 50%% of it will go to A1 and the rest to Am) : ";
     int cache_size = 0;
     std::cin >> cache_size;
@@ -27,13 +29,17 @@ int main (int argc, char* argv[]) {
 
     if (request_count < 1) throw Cache_2q_t<int>::GenericError ("Request count less than one");
 
-    std::cout << "No insert " << request_count  << " numbers that will represent page numbers to look up:\n";
+    std::cout << "Now insert " << request_count  << " numbers that will represent page numbers to look up:\n";
 
     std::vector<int> reqs (request_count);
 
     for (auto& i : reqs) std::cin >> i;
 
     std::cout << "Now chill out and enjoy the testing)\n";
+
+    cache.dump ();
+
+    std::cout << "Test start\n";
 
     std::vector<bool> lookupResults (request_count);
 
@@ -45,11 +51,18 @@ int main (int argc, char* argv[]) {
     }
     std::cout << std::endl;
 
-    std::cout << "Now lets compare it to an ideal cache";
+    std::cout << "Now lets compare it to an ideal cache\n";
 
     Perfect_cache_t<int> perf_cache (cache_size, reqs, slow_get_page_emulator);
 
     perf_cache.dump ();
 
-    
+    std::cout << "Test start\n";
+
+    for (int i = 0; i < request_count; i++) {
+
+        lookupResults[i] = perf_cache.lookup_update (i, slow_get_page_emulator);
+        std::cout << lookupResults[i] << "\n";
+        perf_cache.dump ();
+    }
 }

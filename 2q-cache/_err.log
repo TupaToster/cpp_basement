@@ -1,11 +1,11 @@
 
 In file included from tester.cpp:5:
 perfect_cache.hpp: In instantiation of ‘Perfect_cache_t<T, KeyT>::Perfect_cache_t(int, const std::vector<T>&, F) [with F = int (*)(int); T = int; KeyT = int]’:
-tester.cpp:50:78:   required from here
-   50 |     Perfect_cache_t<int> perf_cache (cache_size, reqs, slow_get_page_emulator);
+tester.cpp:56:78:   required from here
+   56 |     Perfect_cache_t<int> perf_cache (cache_size, reqs, slow_get_page_emulator);
       |                                                                              ^
-perfect_cache.hpp:74:81: warning: passing ‘const std::__cxx11::list<unsigned int>’ as ‘this’ argument discards qualifiers [-fpermissive]
-   74 |             if (dist_map.count (reqs[i]))   dist_map[reqs[i]]->second.push_back (i); ///< add pos to end of list of known positions}
+perfect_cache.hpp:76:81: warning: passing ‘const std::__cxx11::list<unsigned int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+   76 |             if (dist_map.count (reqs[i]))   dist_map[reqs[i]]->second.push_back (i); ///< add pos to end of list of known positions}
       |                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
 In file included from /usr/include/c++/14.2.1/list:65,
                  from 2q.hpp:4,
@@ -13,10 +13,29 @@ In file included from /usr/include/c++/14.2.1/list:65,
 /usr/include/c++/14.2.1/bits/stl_list.h:1310:7: note:   in call to ‘void std::__cxx11::list<_Tp, _Alloc>::push_back(value_type&&) [with _Tp = unsigned int; _Alloc = std::allocator<unsigned int>; value_type = unsigned int]’
  1310 |       push_back(value_type&& __x)
       |       ^~~~~~~~~
-perfect_cache.hpp:78:53: warning: passing ‘const std::__cxx11::list<unsigned int>’ as ‘this’ argument discards qualifiers [-fpermissive]
-   78 |         for (auto& i : dist_set) i.second.push_back (-1); ///< add u_int32_t (-1) (inf in this context) as the last element (to signify that we will not find this element in requests anymore)
-      |                                  ~~~~~~~~~~~~~~~~~~~^~~~
+perfect_cache.hpp:81:32: warning: passing ‘const std::__cxx11::list<unsigned int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+   81 |             i.second.push_back (-1); ///< add u_int32_t (-1) (inf in this context) as the last element (to signify that we will not find this element in requests anymore)
+      |             ~~~~~~~~~~~~~~~~~~~^~~~
 /usr/include/c++/14.2.1/bits/stl_list.h:1310:7: note:   in call to ‘void std::__cxx11::list<_Tp, _Alloc>::push_back(value_type&&) [with _Tp = unsigned int; _Alloc = std::allocator<unsigned int>; value_type = unsigned int]’
  1310 |       push_back(value_type&& __x)
       |       ^~~~~~~~~
+perfect_cache.hpp: In instantiation of ‘Perfect_cache_t<T, KeyT>::GenericError::GenericError(const char*) [with T = int; KeyT = int]’:
+perfect_cache.hpp:87:51:   required from ‘bool Perfect_cache_t<T, KeyT>::cache_full() [with T = int; KeyT = int]’
+   87 |         if (cache.size () > cache_max_size) throw GenericError ("cache size exceeds cache_max_size");
+      |                                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+perfect_cache.hpp:107:18:   required from ‘bool Perfect_cache_t<T, KeyT>::lookup_update(int, F) [with F = int (*)(int); T = int; KeyT = int]’
+  107 |             if (!cache_full ()) {
+      |                  ^~~~~~~~~~
+tester.cpp:64:53:   required from here
+   64 |         lookupResults[i] = perf_cache.lookup_update (i, slow_get_page_emulator);
+      |                            ~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+perfect_cache.hpp:49:51: warning: invalid conversion from ‘const char*’ to ‘char*’ [-fpermissive]
+   49 |         GenericError (const char* msg) : message (msg) {}
+      |                                                   ^~~
+      |                                                   |
+      |                                                   const char*
+perfect_cache.hpp: In member function ‘bool Perfect_cache_t<T, KeyT>::lookup_update(int, F) [with F = int (*)(int); T = int; KeyT = int]’:
+perfect_cache.hpp:143:5: warning: control reaches end of non-void function [-Wreturn-type]
+  143 |     }
+      |     ^
 
