@@ -50,4 +50,6 @@ int main (int argc, char* argv[]) {
     Perfect_cache_t<int> perf_cache (cache_size, reqs, slow_get_page_emulator);
 
     perf_cache.dump ();
+
+    
 }

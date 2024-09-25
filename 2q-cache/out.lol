@@ -43,4 +43,10 @@ am : [2, 1, end]
 am_map : [<2, 0>, <1, 1>, end]
 
 
-Now lets compare it to an ideal cache
+Now lets compare it to an ideal cache-------------------------
+requests : [1, 2, 3, 1, 2, 1, 2, end]
+cache : [end]
+cache_map : [end]
+dist_map : [<3, {2, 4294967295, end}>, <2, {1, 4, 6, 4294967295, end}>, <1, {0, 3, 5, 4294967295, end}>, end]
+dist_set : [<3, {2, 4294967295, end}>, <2, {1, 4, 6, 4294967295, end}>, <1, {0, 3, 5, 4294967295, end}>, end];
+-------------------------

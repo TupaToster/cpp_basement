@@ -1,2 +1,22 @@
 
+In file included from tester.cpp:5:
+perfect_cache.hpp: In instantiation of ‘Perfect_cache_t<T, KeyT>::Perfect_cache_t(int, const std::vector<T>&, F) [with F = int (*)(int); T = int; KeyT = int]’:
+tester.cpp:50:78:   required from here
+   50 |     Perfect_cache_t<int> perf_cache (cache_size, reqs, slow_get_page_emulator);
+      |                                                                              ^
+perfect_cache.hpp:74:81: warning: passing ‘const std::__cxx11::list<unsigned int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+   74 |             if (dist_map.count (reqs[i]))   dist_map[reqs[i]]->second.push_back (i); ///< add pos to end of list of known positions}
+      |                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/14.2.1/list:65,
+                 from 2q.hpp:4,
+                 from tester.cpp:4:
+/usr/include/c++/14.2.1/bits/stl_list.h:1310:7: note:   in call to ‘void std::__cxx11::list<_Tp, _Alloc>::push_back(value_type&&) [with _Tp = unsigned int; _Alloc = std::allocator<unsigned int>; value_type = unsigned int]’
+ 1310 |       push_back(value_type&& __x)
+      |       ^~~~~~~~~
+perfect_cache.hpp:78:53: warning: passing ‘const std::__cxx11::list<unsigned int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+   78 |         for (auto& i : dist_set) i.second.push_back (-1); ///< add u_int32_t (-1) (inf in this context) as the last element (to signify that we will not find this element in requests anymore)
+      |                                  ~~~~~~~~~~~~~~~~~~~^~~~
+/usr/include/c++/14.2.1/bits/stl_list.h:1310:7: note:   in call to ‘void std::__cxx11::list<_Tp, _Alloc>::push_back(value_type&&) [with _Tp = unsigned int; _Alloc = std::allocator<unsigned int>; value_type = unsigned int]’
+ 1310 |       push_back(value_type&& __x)
+      |       ^~~~~~~~~
 

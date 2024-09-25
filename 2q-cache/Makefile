@@ -2,7 +2,7 @@
 CC=g++
 
 # Compiler flags i guess
-CFLAGS=-std=c++20
+CFLAGS=-std=c++20 -fpermissive
 
 # auto generated directories for .o and .d files (deleted on make clean)
 OBJDIR=_objs/
